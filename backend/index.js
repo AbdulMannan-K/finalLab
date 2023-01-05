@@ -3,12 +3,13 @@
  * Modify the code according to your own needs and requirements
  */
 
-//const express = require('express')
 import express from 'express'; // <-- Module Style import
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 // Importing user route
-import router from './routes/users.js';
+import router from './routes/assignments.js'
+import mongoose from "mongoose";
 // const router = require('router')
 
 // const bodyParser = require('body-parser')
@@ -16,9 +17,14 @@ import router from './routes/users.js';
 const app = express()
 const port = 3001
 
+app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
+
 app.use(bodyParser.json())
 // Adding a Router
-app.use('/users', router);
+// app.use('/users', router);
+app.use('/assignments',router);
+
+await mongoose.connect('mongodb+srv://AbdulMannan:03105784747@cluster0.zcxktsd.mongodb.net/?retryWrites=true&w=majority');
 
 app.get('/', (req, res) => {
     res.send('Hello Universe!')
